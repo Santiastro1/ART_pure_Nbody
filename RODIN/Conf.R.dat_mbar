@@ -1,0 +1,54 @@
+Header    : Npd=1e6 L=1/hMpc C=10.  M=9.66e11 Mo/h
+Iconf      : configuration ...........................................3   
+Isat         : satellite..............................................0   
+IMM       :Major Merger(1:1)......................................    0    
+ISSat       : System of Satellites(from a Cosmological Simulation)....0             
+Nd          : Disk number of particles ...............................5000000   
+aMassd  : Disk Mass (Msun/h)..........................................3.0e10               
+Rd           : Exp. Length (kpc/h)....................................2.77              
+Zdkp      : Vertical scale ( kpc/h).................................. 0.14  
+Q            : Toomre Parameter ..................................... 1.2e0     
+Rtkp       : Disk truncation radius (kpc/h)...........................13.51   
+Rrefkp   : Disk Normalization Radius (kpc/h)..........................3.5 
+aMassb  : Bulge Mass (Msun/h).........................................1.e10   
+C_b        : Bulge Hernquist concentration ...........................6.e0   
+Rs_b  : Bulge .25 mass radius(kpc/h)..................................1.25e0          
+Xout_b  : Bulge truncation(kpc/h).....................................6.e0  
+aMassh  : Halo Mass(Msun/h).......................................... 9.80e11        
+Con        : Cnfw concentration ......................................14.e0 
+Xout       :Halo Truncation radius in Rsnfw units ....................14.e0        
+Box        : Boxsize for the simulation(Mpc/h) .......................1.0e0      
+aMass_sat  : Satellite Mass(Msun/h)...................................8.e10 
+Con_sat      : Satellite Cnfw concentration ..........................25.e0  
+Xout_sat     :Satellite Halo Truncation radius in Rsnfw ..............25.e0  
+D0x_sat         :Satellite X Distance to the Parent Halo (kpc/h) .....20.e0  
+D0y_sat         :Satellite Y Distance to the Parent Halo (kpc/h) .....0.e0  
+D0z_sat         :Satellite Z Distance to the Parent Halo (kpc/h) .....0.e0    
+Vx0_sat       :Satellite x - Velocity(km/s)...........................150.
+Vy0_sat       :Satellite y - Velocity(km/s)...........................0.  
+Vz0_sat       :Satellite z - Velocity(km/s)...........................0.
+arot            :   ................................................. 0.   
+alpha1       :Tilt around x for galaxy1...............................0.  
+beta1         :Tilt around y for galaxy1..............................0.  
+alpha2       : Tilt around x for galaxy1..............................0.   
+beta2         :Tilt around y for galaxy1..............................0.    
+aexpn : exp. factor ................................................. 0.6000
+astep: time step .................................................... 0.00025
+overdens    : deltacritical ..........................................340.   
+ocurv: O. curvature ................................................. 0.
+nseed: random seed .................................................. 130721  
+hubble: H0/100 (km/s/Mpc) ..........................................  0.7 
+Om0   : Omega Matter         ......................................   0.3
+Oml0 : Omega Lambda      ...........................................  0.7
+nspecies     : # of species ........................................  7         
+Xb(1)           : Boundary for the 1st mass specie (Rs units)........ 0.7  
+Xb(2)           : Boundary for the 2nd mass specie (Rs units)........ 2.1
+Xb(3)           : Boundary for the 3rd mass specie (Rs units)........ 3.7           
+Xb(4)           : Boundary for the 4th mass specie (Rs units)........ 5.3
+Xb(5)           : Boundary for the 5th mass specie (Rs units)........ 7.0      
+Xb(6)           : Boundary for the 6th mass specie (Rs units)........ 10.0
+Xb(7)           : Boundary for the 7th mass specie (Rs units)........ 14.     
+
+   
+ 
+ 
