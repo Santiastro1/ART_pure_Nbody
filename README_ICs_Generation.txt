@@ -11,9 +11,9 @@ The first step you need to do is to choose a snapshot of the simulation of your 
 ---- Generation of new ICs for your main galactic system ---------------------
 ---- Programs you need: Rodin2.f + Rodin2.h + PMparameters.h + Conf.R.dat ----
 ------------------------------------------------------------------------------
-ICs need to be generated using the RODIN software (see the RODIN folder):
+ICs have to be generated with the RODIN software (see the RODIN folder):
 
-1- You first need to create your own Conf.R.dat file. In this file you will choose the main properties of your galactic system. The system can be a simple NFW dark matter spheroid, a NFW DM spheroid + stellar bulge (Hernquist), a NFW DM spheroid + stellar bulge (Hernquist) + stellar disk (Myamoto Nagay), or a combination of these three components. 
+1- You first need to create your own Conf.R.dat file. In this file you will choose the main properties of your galactic system. The system can be a simple NFW dark matter spheroid, a NFW DM spheroid + stellar bulge (Hernquist), a NFW DM spheroid + stellar bulge (Hernquist) + stellar disk (Myamoto Nagai), or a combination of these three components. 
 
 !!! all units need to be '/h' where h=0.7 !!!
 
