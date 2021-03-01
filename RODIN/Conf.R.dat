@@ -3,7 +3,7 @@ Iconf      : configuration ...........................................3
 Isat         : satellite..............................................0   
 IMM       :Major Merger(1:1)......................................    0    
 ISSat       : System of Satellites(from a Cosmological Simulation)....0             
-Nd          : Disk number of particles ...............................5000000   
+Nd          : Disk number of particles ...............................100000   
 aMassd  : Disk Mass (Msun/h)..........................................2.625e10               
 Rd           : Exp. Length (kpc/h)....................................2.8              
 Zdkp      : Vertical scale ( kpc/h).................................. 0.14  
@@ -40,10 +40,10 @@ nseed: random seed .................................................. 130721
 hubble: H0/100 (km/s/Mpc) ..........................................  0.7 
 Om0   : Omega Matter         ......................................   0.3
 Oml0 : Omega Lambda      ...........................................  0.7
-nspecies     : # of species ........................................  6         
+nspecies     : # of species ........................................  3         
 Xb(1)           : Boundary for the 1st mass specie (Rs units)........ 0.7  
-Xb(2)           : Boundary for the 2nd mass specie (Rs units)........ 2.4
-Xb(3)           : Boundary for the 3rd mass specie (Rs units)........ 4.8           
+Xb(2)           : Boundary for the 2nd mass specie (Rs units)........ 10.
+Xb(3)           : Boundary for the 3rd mass specie (Rs units)........ 18.           
 Xb(4)           : Boundary for the 4th mass specie (Rs units)........ 8.
 Xb(5)           : Boundary for the 5th mass specie (Rs units)........ 13.      
 Xb(6)           : Boundary for the 6th mass specie (Rs units)........ 20.

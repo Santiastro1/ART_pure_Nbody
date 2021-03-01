@@ -47,7 +47,7 @@ C               density=rho_0 =M/a^3
        
              
      
-      Nrad     =15000! 15000!1500!600! 10000 !700!600!1000          ! number of radii for initial conditions                 
+      Nrad     =1000! 15000!1500!600! 10000 !700!600!1000          ! number of radii for initial conditions                 
 c      write(*,*)'Nrad = ',Nrad 
       CALL InitValues(NBYTE,SCALEL)   ! cosmological model    
       
@@ -405,7 +405,7 @@ c      write(*,*)'flag2'
 
 c      write(*,*)'If you want a Tipsy file type 1'
 c      read(*,*)Itipsy
-      itipsy=1
+      itipsy=0
       if(itipsy.eq.0)then
 
 

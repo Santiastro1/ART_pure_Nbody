@@ -1,3 +1,8 @@
+------------------- S. Roca-Fàbrega ------------------
+-------------Universidad Complutense de Madrid--------
+-----------------------25/01/2020---------------------
+
+
 This is a short description of the process to follow in order to obtain a simulation with multiple interacting galactic systems.
 
 Please chance it at your convenience and add the changes you make (and its purpose) at the end of this document. If you have any question regarding the process of making new ART ICs, do not hesitate on contacting S. Roca-Fabrega (sroca01@ucm.es).
