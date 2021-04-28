@@ -382,7 +382,7 @@ C---------------------------------------------------
       Hd  ='PMcrs'
       Tail='_ini.DAT'
 C                                     Open file on a tape
-      OPEN(UNIT=9,FILE=npath//'PMcrd_ini.DAT',
+      OPEN(UNIT=9,FILE=npath//'PMcrd.DAT',
      +                FORM='UNFORMATTED', STATUS='UNKNOWN')
 C                                 Read control information
 C                                 and see whether it has proper
@@ -391,18 +391,18 @@ C                                 structure
      +                  AEXPN,AEXP0,AMPLT,ASTEP,ISTEP,PARTW,
      +                  TINTG,EKIN,EKIN1,EKIN2,AU0,AEU0,
      +                  NROWC,NGRIDC,Nspecies,Nseed,Om0,Oml0,hubble,Wp5
-     +                   ,Ocurv,extras
+     +                   ,Ocurv
       Ocurv =0.
       WRITE (*,100) HEADER,
      +                  AEXPN,AEXP0,AMPLT,ASTEP,ISTEP,PARTW,
      +                  EKIN,EKIN1,EKIN2,
      +                  NROWC,NGRID,NRECL,Om0,Oml0,hubble,
-     +                  Ocurv,extras
+     +                  Ocurv
       WRITE (16,100) HEADER,
      +                  AEXPN,AEXP0,AMPLT,ASTEP,ISTEP,PARTW,
      +                  EKIN,EKIN1,EKIN2,
      +                  NROWC,NGRID,NRECL,Om0,Oml0,hubble,
-     +                  Ocurv,extras
+     +                  Ocurv
 100   FORMAT(1X,'Header=>',A45,/
      +           1X,' A=',F8.3,' A0=',F8.3,' Ampl=',F8.3,' Step=',F8.4,/
      +            1X,' I =',I4,' WEIGHT=',F8.3,' Ekin=',3E12.3,/
