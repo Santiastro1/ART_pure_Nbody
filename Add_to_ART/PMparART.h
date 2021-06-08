@@ -1,7 +1,7 @@
       PARAMETER (NROW=128, NGRID =256, NPAGE=NROW**2, NMAX=NGRID/2)
       PARAMETER (NRECL= NPAGE*6, NARR =MAX(2*NROW+1,NGRID+1))
       PARAMETER (NF67=MAX(NROW,NGRID/2))
-      PARAMETER (Nmaxpart = 2e6)     
+      PARAMETER (Nmaxpart = 1e7)     
 
 c    General parameters
 
@@ -22,9 +22,9 @@ c    General parameters
 
 c    Parameters to move satellite from (0,0,0) to galactic coordinates
 
-      PARAMETER (xsat = 0.0)! Kpc
+      PARAMETER (xsat = 50.0)! Kpc
       PARAMETER (ysat = 0.0)! Kpc
-      PARAMETER (zsat = 0.0)! Kpc
+      PARAMETER (zsat = 30.0)! Kpc
       PARAMETER (vxsat = 0.0)! Km/s
       PARAMETER (vysat = 0.0)! Km/s
       PARAMETER (vzsat = 0.0)! Km/s

@@ -27,10 +27,12 @@ c       character sntime*5  ! Ony for HART simulations (including hydro)
        character head2*7
        dimension xpart(10000000,11),ypart(10000000,11),zpart(10000000,11
      +),vxpart(10000000,11),vypart(10000000,11),vzpart(10000000,11),nums
-     +(11),x(100000000),y(100000000),z(100000000)
-      dimension vxx(100000000),vyy(100000000),vzz(100000000),
+     +(11),x(1000000),y(1000000),z(1000000)
+      dimension xc1(10000000),yc1(10000000),zc1(10000000)
+      dimension vxx(1000000),vyy(1000000),vzz(1000000),
      &lspecies1(10)
-      Box  =1.0 !(box size Mpc/h)                                                                                                               
+      dimension vxc1(10000000),vyc1(10000000),vzc1(10000000)
+      Box  =1.0 !(box size Mpc/h)
       scrip=1 !Output step (allparticles/scrip will be writen in the output tipsy file
       BoxV =Box*100.    ! Box size in km/s                                                                                                 
       tail='.DAT'
@@ -63,9 +65,13 @@ c     READING RODIN OUTPUT HEADER FILE (SATELLITE)
      &              NROWC,NGRIDC,Nspecies,Nseed,Om0,Oml0,hubble,Wp5
      &              ,Ocurv,extras
       ScaleV = BoxV/AEXPN/NGRID  ! scale factor for Velocities                                                                            \
+      FCon  = F(Cnfw)
+      R_0       = Rsnfw            ! in units of kpc/h   
+      M_0       = halomass/Fcon   ! in units of h^{-1}Msun, massscale   
+      vscale    = 1./(ScaleV/2.08e-3/sqrt(M_0/R_0))
                                                         
       ScaleC = Box*aexpn/NGRID         ! scale factor for Coordinates 
- 
+
  100     FORMAT(1X,'Header=>',A45,/
      +      1X,' A=',F8.3,' A0=',F8.3,' Ampl=',F8.3,' Step=',F8.3,/
      +            1X,' I =',I4,' WEIGHT=',F8.3,' Ekin=',E12.3,/
@@ -126,25 +132,25 @@ c check rounding errors (REAL*8 <=> REAL*4)
                 vxx(ip) = vx(in)
                 vyy(ip) = vy(in)
                 vzz(ip) = vz(in)
-           X(ip)  =ScaleC* (X(Ip)-1.)*1000.0d0/hubble/(2.87e4)       
-           Y(ip)  =ScaleC* (Y(Ip)-1.)*1000.0d0/hubble/(2.87e4)
-           Z(ip)  =ScaleC* (Z(Ip)-1.)*1000.0d0/hubble/(2.87e4)
-           Vxx(ip)=ScaleV* VXx(Ip)/691.0d0
-           Vyy(ip)=ScaleV* VYy(Ip)/691.0d0
-           Vzz(ip)=ScaleV* VZz(Ip)/691.0d0
-
+           X(ip)  =(X(Ip)-NGRID/2.)*1000.*ScaleC/hubble     
+           Y(ip)  =(Y(Ip)-NGRID/2.)*1000.*ScaleC/hubble 
+           Z(ip)  =(Z(Ip)-NGRID/2.)*1000.*ScaleC/hubble 
+           Vxx(ip)=VXx(Ip)*vscale
+           Vyy(ip)=VYy(Ip)*vscale
+           Vzz(ip)=VZz(Ip)*vscale
+           write(*,*) Vxx(ip), Vzz(ip), Vyy(ip)
 c     Adding positions and velocities of the satellite with respect
 c    to the center of the main galaxy
 
 C  SATELLITE positions and velocities need to be indicated in the
 C   "PMparART.h" file (lines 25 to 30):
 
-           X(ip) = (X(ip)+xsat)/ScaleC/1000.0d0*hubble*2.87e4+1.
-           Y(ip) = (Y(ip)+ysat)/ScaleC/1000.0d0*hubble*2.87e4+1.
-           Z(ip) = (Z(ip)+zsat)/ScaleC/1000.0d0*hubble*2.87e4+1.
-           Vxx(ip) = (Vxx(ip)+vxsat)/ScaleV*691.0d0
-           Vyy(ip) = (Vyy(ip)+vysat)/ScaleV*691.0d0
-           Vzz(ip) = (Vzz(ip)+vzsat)/ScaleV*691.0d0
+           X(ip)  =(X(Ip)+xsat)/ScaleC/1000.*hubble+NGRID/2.                     
+           Y(ip)  =(Y(Ip)+ysat)/ScaleC/1000.*hubble+NGRID/2.
+           Z(ip)  =(Z(Ip)+zsat)/ScaleC/1000.*hubble+NGRID/2.
+           Vxx(ip)=(Vxx(Ip)+vxsat)/vscale
+           Vyy(ip)=(Vyy(Ip)+vysat)/vscale
+           Vzz(ip)=(Vzz(Ip)+vzsat)/vscale
 
          Enddo
       Enddo
@@ -206,26 +212,26 @@ C means no relaxation of the system!!
                 ip =IN+iL                     ! current particle number                                                                    
                   WPAR =iWeight(ip)   ! particles weight
 c check rounding errors (REAL*8 <=> REAL*4)                                                                                                
-                xc(ip) = xpar(in)
-                yc(ip) = ypar(in)
-                zc(ip) = zpar(in)
+                xc1(ip) = xpar(in)
+                yc1(ip) = ypar(in)
+                zc1(ip) = zpar(in)
 
-             If(  xc(ip).ge.xn)Then
-                xc(ip) = xc(ip) -1.e-4
-                write (*,*) xc(ip),ip,1
+             If(  xc1(ip).ge.xn)Then
+                xc1(ip) = xc1(ip) -1.e-4
+                write (*,*) xc1(ip),ip,1
              endif
-             If(  yc(ip).ge.xn)Then
-                yc(ip) = yc(ip) -1.e-4
-                write (*,*) yc(ip),ip,2
+             If(  yc1(ip).ge.xn)Then
+                yc1(ip) = yc1(ip) -1.e-4
+                write (*,*) yc1(ip),ip,2
              endif
-             If(  zc(ip).ge.xn)Then
-                zc(ip) = zc(ip) -1.e-4
-                write (*,*) zc(ip),ip,3
+             If(  zc1(ip).ge.xn)Then
+                zc1(ip) = zc1(ip) -1.e-4
+                write (*,*) zc1(ip),ip,3
              endif
 
-               vxc(ip) = vx(in)
-                vyc(ip) = vy(in)
-                vzc(ip) = vz(in)
+               vxc1(ip) = vx(in)
+                vyc1(ip) = vy(in)
+                vzc1(ip) = vz(in)
          Enddo
       Enddo
 
@@ -245,25 +251,43 @@ c     We now add particles of the satellite to the main simulation
      +lspecies(i-1),'weight =', wspecies(i)
          enddo
 
-      do i=lspecies(1)-lspecies0(1)+1,lspecies(1)
-      xc(i)=x(i-lspecies(1)+lspecies0(1))
-      yc(i)=y(i-lspecies(1)+lspecies0(1))
-      zc(i)=z(i-lspecies(1)+lspecies0(1))
-      vxc(i)=vxx(i-lspecies(1)+lspecies0(1))
-      vyc(i)=vyy(i-lspecies(1)+lspecies0(1))
-      vzc(i)=vzz(i-lspecies(1)+lspecies0(1))
+      do j=2,nspecies
+      do i=lspecies(j-1)+(lspecies0(j)-lspecies0(j-1))+1,lspecies(j)
+      xc(i)=xc1(i-lspecies0(j))
+      yc(i)=yc1(i-lspecies0(j))
+      zc(i)=zc1(i-lspecies0(j))
+      vxc(i)=vxc1(i-lspecies0(j))
+      vyc(i)=vyc1(i-lspecies0(j))
+      vzc(i)=vzc1(i-lspecies0(j))
+      enddo
+      do i=lspecies(j-1)+1,lspecies(j-1)+(lspecies0(j)-lspecies0(j-1))
+      xc(i)=x(i-lspecies(j-1))
+      yc(i)=y(i-lspecies(j-1))
+      zc(i)=z(i-lspecies(j-1))
+      vxc(i)=vxx(i-lspecies(j-1))
+      vyc(i)=vyy(i-lspecies(j-1))
+      vzc(i)=vzz(i-lspecies(j-1))
+      enddo
       enddo
 
-      do j=2,nspecies
-      do i=lspecies(j)-(lspecies0(j)-lspecies0(j-1))+1,lspecies(j)
-      xc(i)=x(i-lspecies(j)+lspecies0(j)-lspecies0(j-1))
-      yc(i)=y(i-lspecies(j)+lspecies0(j)-lspecies0(j-1))
-      zc(i)=z(i-lspecies(j)+lspecies0(j)-lspecies0(j-1))
-      vxc(i)=vxx(i-lspecies(j)+lspecies0(j)-lspecies0(j-1))
-      vyc(i)=vyy(i-lspecies(j)+lspecies0(j)-lspecies0(j-1))
-      vzc(i)=vzz(i-lspecies(j)+lspecies0(j)-lspecies0(j-1))
+
+      do i=lspecies0(1)+1,lspecies(1)
+       xc(i)=xc1(i-lspecies0(1))
+       yc(i)=yc1(i-lspecies0(1))
+       zc(i)=zc1(i-lspecies0(1))
+       vxc(i)=vxc1(i-lspecies0(1))
+       vyc(i)=vyc1(i-lspecies0(1))
+       vzc(i)=vzc1(i-lspecies0(1))
       enddo
+      do i=1,lspecies0(1)
+      xc(i)=x(i)
+      yc(i)=y(i)
+      zc(i)=z(i)
+      vxc(i)=vxx(i)
+      vyc(i)=vyy(i)
+      vzc(i)=vzz(i)
       enddo
+
 
 c     Writting in new IC files
 
@@ -382,7 +406,7 @@ C---------------------------------------------------
       Hd  ='PMcrs'
       Tail='_ini.DAT'
 C                                     Open file on a tape
-      OPEN(UNIT=9,FILE=npath//'PMcrd.DAT',
+      OPEN(UNIT=9,FILE=npath//'PMcrd_ini.DAT',
      +                FORM='UNFORMATTED', STATUS='UNKNOWN')
 C                                 Read control information
 C                                 and see whether it has proper
@@ -391,7 +415,7 @@ C                                 structure
      +                  AEXPN,AEXP0,AMPLT,ASTEP,ISTEP,PARTW,
      +                  TINTG,EKIN,EKIN1,EKIN2,AU0,AEU0,
      +                  NROWC,NGRIDC,Nspecies,Nseed,Om0,Oml0,hubble,Wp5
-     +                   ,Ocurv
+     +                   ,Ocurv,extras
       Ocurv =0.
       WRITE (*,100) HEADER,
      +                  AEXPN,AEXP0,AMPLT,ASTEP,ISTEP,PARTW,
@@ -433,4 +457,11 @@ c         write (*,*) ' File>',ifile,' unit=',iun,' Name=',Nm
       REWIND 9
       RETURN
       END
-
+C--------------------------------------- 
+      REAL*4 Function F(x)   ! x =r/r_s,  F= mass(r)/4pi r_s^3
+C---------------------------------------
+      IMPLICIT REAL*4(A-H,O-Z)
+         y =max(x,1.e-10)
+         F =Max(LOG(1.+y) -y/(1.+y),1.e-16)
+      Return
+      End
